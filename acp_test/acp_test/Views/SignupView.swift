@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SignUpView: View {
     @State private var email: String = ""
@@ -100,6 +101,17 @@ struct SignUpView: View {
                 Spacer()
                 
                 Button {
+                    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+
+                        if let authResult = authResult {
+                            print(authResult.user.uid)
+                        }
+                    }
+                    
                 } label: {
                     Text("Create New Account")
                         .foregroundColor(.black)

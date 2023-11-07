@@ -97,7 +97,7 @@ struct LoginView: View {
                         self.currentShowingView = "signin"
                     }
                 }){
-                    Text("パスワードを忘れた方")
+                    Text("新しくアカウントを作る")
                         .foregroundColor(.black.opacity(0.7))
                 }
                     
