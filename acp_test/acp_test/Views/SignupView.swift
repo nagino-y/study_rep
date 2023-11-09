@@ -13,6 +13,8 @@ struct SignUpView: View {
     @State private var password: String = ""
     
     @Binding var currentShowingView: String
+    @AppStorage("uid") var userID: String = ""
+    
     private func isValidPassword(_ password: String) -> Bool{
         //minimum 6
         //1 upper
@@ -109,6 +111,7 @@ struct SignUpView: View {
 
                         if let authResult = authResult {
                             print(authResult.user.uid)
+                            userID = authResult.user.uid
                         }
                     }
                     

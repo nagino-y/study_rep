@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 //import FirebaseCore
-//import FirebaseAuth
 //import GoogleSignIn
 
 
@@ -16,6 +16,8 @@ struct LoginView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    
+    @AppStorage("uid") var userID: String = ""
     
     private func isValidPassword(_ password: String) -> Bool{
         //minimum 6
@@ -105,6 +107,21 @@ struct LoginView: View {
                 Spacer()
                 
                 Button {
+                    Auth.auth().signIn(withEmail: email, password: password) {authResult, error in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+                        if let authResult = authResult{
+                            print(authResult.user.uid)
+                            withAnimation{
+                                userID = authResult.user.uid
+                            }
+                        }
+                      
+                    }
+                    
+                    
                 } label: {
                     Text("Sign In")
                         .foregroundColor(.white)
